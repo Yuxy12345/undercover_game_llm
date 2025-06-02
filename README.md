@@ -1,7 +1,7 @@
 # Undercover Game LLM
 
 ## 项目介绍
-Undercover LLM 是一个基于语言模型的 "谁是卧底" 游戏模拟器。该项目通过整合多个本地和在线语言模型，模拟玩家在游戏中的行为和决策，旨在探索语言模型在心理博弈和策略游戏中的表现。
+Undercover Game LLM 是一个基于语言模型的 "谁是卧底" 游戏模拟器。该项目通过整合多个本地和在线语言模型，模拟玩家在游戏中的行为和决策，旨在探索语言模型在心理博弈和策略游戏中的表现。
 
 创作灵感和部分实现参考了LYiHub的liars-bar-llm项目：
 https://github.com/LYiHub/liars-bar-llm
