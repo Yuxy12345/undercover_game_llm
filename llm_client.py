@@ -6,6 +6,12 @@ import ollama
 import re
 import logging
 from logging.handlers import RotatingFileHandler
+import os
+
+os.makedirs("log", exist_ok=True)
+
+log_handler = RotatingFileHandler("log/llm.log", maxBytes=50*1024*1024, backupCount=5, encoding="utf-8")
+log_handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(message)s'))
 
 API_BASE_URL = "YOUR_API_BASE_URL"  # 替换为你的API基础URL
 API_KEY = "YOUR_API_KEY"  # 替换为你的API密钥
@@ -32,9 +38,6 @@ class OpenAIClient(LLMClient):
             base_url=base_url
         )
         self.logger = logging.getLogger("llm")
-        os.makedirs("log", exist_ok=True)
-        log_handler = RotatingFileHandler("log/llm.log", maxBytes=50*1024*1024, backupCount=5, encoding="utf-8")
-        log_handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(message)s'))
         self.logger.handlers = []  # 移除已有的handler，防止重复
         self.logger.addHandler(log_handler)
         self.logger.propagate = False  # 不向上冒泡到root logger
@@ -52,7 +55,9 @@ class OpenAIClient(LLMClient):
             tuple: (content, reasoning_content)
         """
         try:
-            self.logger.info(f"LLM请求: {messages}")
+            self.logger.info("-" * 5 + f" {model}[OpenAI] " + "-" * 5)
+            self.logger.info(f"Question: {messages[0]['content']}")
+            self.logger.info("")
             response = self.client.chat.completions.create(
                 model=model,
                 messages=messages,
@@ -61,7 +66,10 @@ class OpenAIClient(LLMClient):
                 message = response.choices[0].message
                 content = message.content if message.content else ""
                 reasoning_content = getattr(message, "reasoning_content", "")
-                self.logger.info(f"LLM推理内容: {content}")
+                if reasoning_content != "":
+                    self.logger.info(f"Think: \n{reasoning_content}")
+                self.logger.info(f"Answer: \n{content}")
+                self.logger.info("-" * 5 + f" {model}[OpenAI] " + "-" * 5)
                 return content, reasoning_content
             self.logger.warning("LLM没有返回有效内容")
             return "", ""
@@ -75,9 +83,6 @@ class OllamaClient(LLMClient):
     def __init__(self):
         """初始化Ollama客户端"""
         self.logger = logging.getLogger("llm")
-        os.makedirs("log", exist_ok=True)
-        log_handler = RotatingFileHandler("log/llm.log", maxBytes=50*1024*1024, backupCount=5, encoding="utf-8")
-        log_handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(message)s'))
         self.logger.handlers = []  # 移除已有的handler，防止重复
         self.logger.addHandler(log_handler)
         self.logger.propagate = False  # 不向上冒泡到root logger
@@ -94,7 +99,7 @@ class OllamaClient(LLMClient):
             tuple: (content, reasoning_content)
         """
         try:
-            self.logger.info("-" * 5 + model + "-" * 5)
+            self.logger.info("-" * 5 + f" {model}[Local] " + "-" * 5)
             self.logger.info(f"Question: \n{messages[0]['content']}")
             self.logger.info("")
 
@@ -112,7 +117,7 @@ class OllamaClient(LLMClient):
             if reasoning_content != "":
                 self.logger.info(f"Think: \n{reasoning_content}")
             self.logger.info(f"Answer: \n{content}")
-            self.logger.info("-" * 5 + model + "-" * 5)
+            self.logger.info("-" * 5 + f" {model}[Local] " + "-" * 5)
             return content, reasoning_content
         except ollama.ResponseError as e:
             self.logger.error(f"Ollama调用出错: {str(e)}")

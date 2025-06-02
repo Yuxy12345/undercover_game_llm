@@ -24,5 +24,10 @@ player_configs = [
         "name": "Gemma3",
         "model": "gemma3:12b",
         "local": True
+    },
+    {
+        "name": "ChatGPT",
+        "model": "gpt-3.5-turbo",
+        "local": False
     }
 ]
