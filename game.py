@@ -191,7 +191,7 @@ class UndercoverGame:
                 self._record_event(winners_log)
                 self.game_result = {
                     "winners": winner_names,
-                    "role": winner[0].role,
+                    "role": role,
                     "game_history": self.game_history
                 }
             else:
