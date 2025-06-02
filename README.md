@@ -3,6 +3,9 @@
 ## 项目介绍
 Undercover LLM 是一个基于语言模型的 "谁是卧底" 游戏模拟器。该项目通过整合多个本地和在线语言模型，模拟玩家在游戏中的行为和决策，旨在探索语言模型在心理博弈和策略游戏中的表现。
 
+创作灵感和部分实现参考了LYiHub的liars-bar-llm项目：
+https://github.com/LYiHub/liars-bar-llm
+
 ## 实现思路
 1. **玩家配置**：
    - 在 `player_configs.py` 中定义了多个 AI 玩家，每个玩家使用不同的语言模型（本地 Ollama 模型或 OpenAI 模型）。
