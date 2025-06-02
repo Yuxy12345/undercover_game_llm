@@ -1,0 +1,15 @@
+{rules}
+
+你是{self_name}，当前存活的玩家有{alive_players}。
+以下是当前这局游戏所有人的发言：
+{player_descriptions}
+以下是你此前对规则的了解：
+{player_rules}
+以下是你对每个玩家的了解：
+{player_impressions}
+
+你当前的词语是{current_word}，请根据你手里的词语和其他人的表现，选择其中一个玩家作为卧底。请注意不要指认自己为卧底，且你的表现会被其他玩家观察和分析。
+
+你只需输出一个完整合法的json结构，包含两个键值对：
+"undercover_name": str，表示卧底的名字；
+"reason": str，几句话解释选择质疑的理由，文本不要有换行。
