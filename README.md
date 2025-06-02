@@ -34,23 +34,28 @@ https://github.com/LYiHub/liars-bar-llm
 - `requirements.txt`：项目依赖。
 
 ## 运行方法
-1. **安装依赖**：
+1. **前置要求**：
+   - 在`player_configs.py`中配置要使用的大模型；
+   - 如果使用OpenAI API模型，需要在`llm_client.py`中填写你的URL和API Key；
+   - 如果使用本地Ollama模型，需要本地安装好Ollama和`player_configs.py`中配置的大模型。
+
+2. **安装依赖**：
    ```bash
    pip install -r requirements.txt
    ```
 
-2. **运行单局游戏**：
+3. **运行单局游戏**：
    ```bash
    python game.py
    ```
 
-3. **运行多轮游戏**：
+4. **运行多轮游戏**：
    ```bash
    python multi_run_games.py <num_runs>
    ```
    其中 `<num_runs>` 是运行的游戏轮数。
 
-4. **分析游戏结果**：
+5. **分析游戏结果**：
    ```bash
    python game_analysis.py
    ```
