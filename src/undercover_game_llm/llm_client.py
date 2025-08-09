@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
-import os
 
+from dotenv import load_dotenv
 from openai import OpenAI
 import ollama 
 import re
@@ -10,11 +10,12 @@ import os
 
 os.makedirs("log", exist_ok=True)
 
-log_handler = RotatingFileHandler("log/llm.log", maxBytes=50*1024*1024, backupCount=5, encoding="utf-8")
+log_handler = RotatingFileHandler("log/llm.log", maxBytes=50 * 1024 * 1024, backupCount=5, encoding="utf-8")
 log_handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(message)s'))
 
-API_BASE_URL = "YOUR_API_BASE_URL"  # 替换为你的API基础URL
-API_KEY = "YOUR_API_KEY"  # 替换为你的API密钥
+load_dotenv()
+API_BASE_URL = os.getenv("API_BASE_URL")
+API_KEY = os.getenv("API_KEY")
 
 class LLMClient(ABC):
     @abstractmethod
@@ -133,5 +134,5 @@ if __name__ == "__main__":
     messages = [
         {"role": "user", "content": "1+1为什么等于2"}
     ]
-    response = llm.chat(messages, "llama3.1:8b")
+    response = llm.chat(messages, "qwen3:14b")
     print(f"响应: {response}")

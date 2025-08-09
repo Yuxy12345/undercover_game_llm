@@ -33,7 +33,7 @@ class UndercoverGame:
     def _reassign_players(self):
         """重新分配玩家角色和词语"""
         # 从gamewords.json随机选择一组词语
-        with open("gamewords.json", "r", encoding="utf-8") as f:
+        with open("conf/gamewords.json", "r", encoding="utf-8") as f:
             all_word_pairs = json.load(f)
         word_pair = random.choice(all_word_pairs)
         self.civilian_word = word_pair[0]
@@ -222,7 +222,7 @@ class UndercoverGame:
         """保存游戏结果到文件"""
         import os
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        os.makedirs("results", exist_ok=True)
+        os.makedirs("../../results", exist_ok=True)
         filename = f"results/result_{timestamp}.json"
         with open(filename, "w", encoding="utf-8") as f:
             json.dump(self.game_result, f, ensure_ascii=False, indent=4)

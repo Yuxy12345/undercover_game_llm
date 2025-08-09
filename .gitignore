@@ -25,3 +25,7 @@ __pycache__
 log
 # Ignore results directories
 results
+# Ignore coverage directories
+.coverage
+# Ignore environment variable files
+.env

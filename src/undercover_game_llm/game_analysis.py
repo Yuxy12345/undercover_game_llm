@@ -22,7 +22,7 @@ def batch_get_game_results():
     """批量获取游戏结果"""
     game_results = []
     # 游戏结果存在results/result_*.json文件中，读取所有符合条件的文件
-    result_dir = "results"
+    result_dir = "../../results"
     if not os.path.exists(result_dir):
         print(f"警告: 结果目录 {result_dir} 不存在")
         return game_results

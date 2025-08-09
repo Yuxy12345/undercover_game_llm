@@ -1,0 +1,16 @@
+[project]
+name = "undercover_game_llm"
+version = "1.0"
+description = "A game analysis and simulation project."
+authors = [
+    { name = "Yuxy12345" }
+]
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.8"
+dependencies = [
+    "ollama",
+    "openai",
+    "toml",
+    "python-dotenv"
+]
