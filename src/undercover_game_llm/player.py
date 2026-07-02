@@ -49,7 +49,7 @@ class AIPlayer:
         prompt = CORRECT_JSON_TEMPLATE.format(error_json=error_json)
         content, _ = self.llm_client.chat(
             messages=[{"role": "user", "content": prompt}],
-            model="codellama:13b"
+            model=self.model
         )
         return content.strip()
     

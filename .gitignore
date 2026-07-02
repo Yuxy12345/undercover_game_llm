@@ -24,8 +24,10 @@ __pycache__
 # Ignore log directories
 log
 # Ignore results directories
-results
+results/*.json
 # Ignore coverage directories
 .coverage
 # Ignore environment variable files
 .env
+# Ignore the .DS_Store file
+.DS_Store

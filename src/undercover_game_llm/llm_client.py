@@ -69,6 +69,13 @@ class OpenAIClient(LLMClient):
                 reasoning_content = getattr(message, "reasoning_content", "")
                 if reasoning_content != "":
                     self.logger.info(f"Think: \n{reasoning_content}")
+                else: 
+                    reasoning_matches = re.findall(r'<think>(.*?)</think>', content, re.DOTALL)
+                    reasoning_content = "\n".join(reasoning_matches)
+                    
+                    # 移除<think></think>内容后的剩余部分
+                    content = re.sub(r'<think>.*?</think>', '', content, flags=re.DOTALL).strip()
+                    
                 self.logger.info(f"Answer: \n{content}")
                 self.logger.info("-" * 5 + f" {model}[OpenAI] " + "-" * 5)
                 return content, reasoning_content
